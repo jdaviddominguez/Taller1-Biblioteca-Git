@@ -27,6 +27,8 @@ public class Main {
             opcion = leerEntero("Selecciona una opcion: ");
             switch (opcion) {
                 case 1 -> crearCliente();
+                case 2 -> listarClientes();
+
                 default -> System.out.println("Opcion invalida.");
             }
         } while (opcion != 0);
@@ -36,7 +38,11 @@ public class Main {
         System.out.println("\n===== SISTEMA DE BIBLIOTECA MUNICIPAL DE VALLEDUPAR =====");
         System.out.println("--- Clientes ---");
         System.out.println("1. Crear cliente");
+        System.out.println("2. Listar clientes");
+        System.out.println("3. Buscar cliente por id");
     }
+    
+    // ===================== CCRUD DE CLIENTE =====================
     
      private static void crearCliente() {
         System.out.println("\n-- Crear cliente --");
@@ -46,6 +52,26 @@ public class Main {
         String email = leerTexto("Email: ");
         client.add(new Client(id, nombre, telefono, email));
         System.out.println("Cliente creado correctamente.");
+    }
+     
+     private static void listarClientes() {
+        System.out.println("\n-- Listado de clientes --");
+        if (client.isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
+        }
+        for (Client c : client) {
+            System.out.println(c);
+        }
+    }
+     
+     private static Client buscarClientePorId(String id) {
+        for (Client c : client) {
+            if (c.getId().equalsIgnoreCase(id)) {
+                return c;
+            }
+        }
+        return null;
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
