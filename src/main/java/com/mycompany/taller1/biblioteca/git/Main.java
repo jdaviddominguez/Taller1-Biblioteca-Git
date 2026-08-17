@@ -43,7 +43,7 @@ public class Main {
                 case 10 -> eliminarLibro();
                 case 11 -> crearPrestamo();
                 case 12 -> registrarDevolucion();
-
+                case 13 -> listarPrestamosActivos();
 
                 default -> System.out.println("Opcion invalida.");
             }
@@ -67,7 +67,7 @@ public class Main {
         System.out.println("--- Prestamos ---");
         System.out.println("11. Registrar prestamo");
         System.out.println("12. Registrar devolucion");
-
+        System.out.println("13. Listar prestamos activos");
 
     }
     
@@ -241,6 +241,20 @@ public class Main {
             }
         }
         System.out.println("Prestamo activo no encontrado.");
+    }
+    
+    private static void listarPrestamosActivos() {
+        System.out.println("\n-- Prestamos activos --");
+        boolean hay = false;
+        for (Loan p : loan) {
+            if (p.getEstado().equals("ACTIVO")) {
+                System.out.println(p);
+                hay = true;
+            }
+        }
+        if (!hay) {
+            System.out.println("No hay prestamos activos.");
+        }
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
