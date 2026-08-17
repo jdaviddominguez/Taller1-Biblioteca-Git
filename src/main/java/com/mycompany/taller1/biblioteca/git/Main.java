@@ -4,6 +4,7 @@
 
 package com.mycompany.taller1.biblioteca.git;
 
+import com.mycompany.taller1.biblioteca.Book;
 import com.mycompany.taller1.biblioteca.Client;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.Scanner;
 public class Main {
     
     static ArrayList<Client> client = new ArrayList<>();
-    
+    static ArrayList<Book> books = new ArrayList<>();
+
     
     static Scanner sc = new Scanner(System.in);
 
@@ -31,6 +33,8 @@ public class Main {
                 case 3 -> buscarCliente();
                 case 4 -> actualizarCliente();
                 case 5 -> eliminarCliente();
+                case 6 -> crearLibro();
+
 
 
                 default -> System.out.println("Opcion invalida.");
@@ -46,6 +50,8 @@ public class Main {
         System.out.println("3. Buscar cliente por id");
         System.out.println("4. Actualizar cliente");
         System.out.println("5. Eliminar cliente");
+        System.out.println("--- Libros ---");
+        System.out.println("6. Crear libro");
     }
     
     // ===================== CCRUD DE CLIENTE =====================
@@ -111,6 +117,18 @@ public class Main {
         }
         client.remove(c);
         System.out.println("Cliente eliminado.");
+    }
+     
+     // ===================== CRUD DE LIBROS(BOOOKS) =====================
+ 
+    private static void crearLibro() {
+        System.out.println("\n-- Crear libro --");
+        String codigo = leerTexto("Codigo: ");
+        String titulo = leerTexto("Titulo: ");
+        int anio = leerEntero("Anio de publicacion: ");
+        String autor = leerTexto("Autor: ");
+        books.add(new Book(codigo, titulo, anio, autor));
+        System.out.println("Libro creado correctamente.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
