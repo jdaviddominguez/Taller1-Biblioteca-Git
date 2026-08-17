@@ -34,6 +34,7 @@ public class Main {
                 case 4 -> actualizarCliente();
                 case 5 -> eliminarCliente();
                 case 6 -> crearLibro();
+                case 7 -> listarLibros();
 
 
 
@@ -52,6 +53,7 @@ public class Main {
         System.out.println("5. Eliminar cliente");
         System.out.println("--- Libros ---");
         System.out.println("6. Crear libro");
+        System.out.println("7. Listar libros");
     }
     
     // ===================== CCRUD DE CLIENTE =====================
@@ -129,6 +131,17 @@ public class Main {
         String autor = leerTexto("Autor: ");
         books.add(new Book(codigo, titulo, anio, autor));
         System.out.println("Libro creado correctamente.");
+    }
+    
+    private static void listarLibros() {
+        System.out.println("\n-- Listado de libros --");
+        if (books.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+            return;
+        }
+        for (Book l : books) {
+            System.out.println(l);
+        }
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
