@@ -37,6 +37,7 @@ public class Main {
                 case 7 -> listarLibros();
                 case 8 -> buscarLibro();
                 case 9 -> actualizarLibro();
+               case 10 -> eliminarLibro();
 
 
 
@@ -60,6 +61,7 @@ public class Main {
         System.out.println("7. Listar libros");
         System.out.println("8. Buscar libro por codigo");
         System.out.println("9. Actualizar libro");
+        System.out.println("10. Eliminar libro");
 
     }
     
@@ -179,6 +181,18 @@ public class Main {
         l.setAnioPublicacion(leerEntero("Nuevo anio de publicacion: "));
         l.setAutor(leerTexto("Nuevo autor: "));
         System.out.println("Libro actualizado.");
+    }
+    
+    private static void eliminarLibro() {
+        System.out.println("\n-- Eliminar libro --");
+        String codigo = leerTexto("Codigo del libro a eliminar: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+        books.remove(l);
+        System.out.println("Libro eliminado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
