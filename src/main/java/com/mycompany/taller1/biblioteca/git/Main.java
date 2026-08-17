@@ -6,6 +6,7 @@ package com.mycompany.taller1.biblioteca.git;
 
 import com.mycompany.taller1.biblioteca.Book;
 import com.mycompany.taller1.biblioteca.Client;
+import com.mycompany.taller1.biblioteca.Loan;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,6 +19,8 @@ public class Main {
     
     static ArrayList<Client> client = new ArrayList<>();
     static ArrayList<Book> books = new ArrayList<>();
+    static ArrayList<Loan> loan = new ArrayList<>();
+
 
     
     static Scanner sc = new Scanner(System.in);
@@ -37,11 +40,10 @@ public class Main {
                 case 7 -> listarLibros();
                 case 8 -> buscarLibro();
                 case 9 -> actualizarLibro();
-               case 10 -> eliminarLibro();
-
-
-
-
+                case 10 -> eliminarLibro();
+                case 11 -> crearPrestamo();
+                case 12 -> registrarDevolucion();
+                case 13 -> listarPrestamosActivos();
 
                 default -> System.out.println("Opcion invalida.");
             }
@@ -62,6 +64,10 @@ public class Main {
         System.out.println("8. Buscar libro por codigo");
         System.out.println("9. Actualizar libro");
         System.out.println("10. Eliminar libro");
+        System.out.println("--- Prestamos ---");
+        System.out.println("11. Registrar prestamo");
+        System.out.println("12. Registrar devolucion");
+        System.out.println("13. Listar prestamos activos");
 
     }
     
@@ -193,6 +199,62 @@ public class Main {
         }
         books.remove(l);
         System.out.println("Libro eliminado.");
+    }
+    
+    
+        // ===================== CRUD DE PRESTAMO =====================
+    
+    private static void crearPrestamo() {
+        System.out.println("\n-- Registrar prestamo --");
+        String idPrestamo = leerTexto("Id del prestamo: ");
+        String idCliente = leerTexto("Id del cliente: ");
+        Client c = buscarClientePorId(idCliente);
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+        String codigoLibro = leerTexto("Codigo del libro: ");
+        Book l = buscarLibroPorCodigo(codigoLibro);
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+        if (!l.isDisponible()) {
+            System.out.println("El libro no esta disponible.");
+            return;
+        }
+        Loan p = new Loan(idPrestamo, c, l, LocalDate.now());
+        loan.add(p);
+        l.setDisponible(false);
+        System.out.println("Prestamo registrado correctamente.");
+    }
+    
+    private static void registrarDevolucion() {
+        System.out.println("\n-- Registrar devolucion --");
+        String idPrestamo = leerTexto("Id del prestamo: ");
+        for (Loan p : loan) {
+            if (p.getIdPrestamo().equalsIgnoreCase(idPrestamo) && p.getEstado().equals("ACTIVO")) {
+                p.setEstado("DEVUELTO");
+                p.getLibro().setDisponible(true);
+                System.out.println("Devolucion registrada correctamente.");
+                return;
+            }
+        }
+        System.out.println("Prestamo activo no encontrado.");
+    }
+    
+    private static void listarPrestamosActivos() {
+        System.out.println("\n-- Prestamos activos --");
+        boolean hay = false;
+        for (Loan p : loan) {
+            if (p.getEstado().equals("ACTIVO")) {
+                System.out.println(p);
+                hay = true;
+            }
+        }
+        if (!hay) {
+            System.out.println("No hay prestamos activos.");
+        }
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
