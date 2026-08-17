@@ -28,6 +28,7 @@ public class Main {
             switch (opcion) {
                 case 1 -> crearCliente();
                 case 2 -> listarClientes();
+                case 3 -> buscarCliente();
 
                 default -> System.out.println("Opcion invalida.");
             }
@@ -72,6 +73,13 @@ public class Main {
             }
         }
         return null;
+    }
+     
+     private static void buscarCliente() {
+        System.out.println("\n-- Buscar cliente --");
+        String id = leerTexto("Id del cliente: ");
+        Client c = buscarClientePorId(id);
+        System.out.println(c != null ? c : "Cliente no encontrado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
