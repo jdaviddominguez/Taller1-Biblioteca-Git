@@ -36,6 +36,8 @@ public class Main {
                 case 6 -> crearLibro();
                 case 7 -> listarLibros();
                 case 8 -> buscarLibro();
+                case 9 -> actualizarLibro();
+
 
 
 
@@ -57,6 +59,7 @@ public class Main {
         System.out.println("6. Crear libro");
         System.out.println("7. Listar libros");
         System.out.println("8. Buscar libro por codigo");
+        System.out.println("9. Actualizar libro");
 
     }
     
@@ -162,6 +165,20 @@ public class Main {
         String codigo = leerTexto("Codigo del libro: ");
         Book l = buscarLibroPorCodigo(codigo);
         System.out.println(l != null ? l : "Libro no encontrado.");
+    }
+    
+    private static void actualizarLibro() {
+        System.out.println("\n-- Actualizar libro --");
+        String codigo = leerTexto("Codigo del libro a actualizar: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+        l.setTitulo(leerTexto("Nuevo titulo: "));
+        l.setAnioPublicacion(leerEntero("Nuevo anio de publicacion: "));
+        l.setAutor(leerTexto("Nuevo autor: "));
+        System.out.println("Libro actualizado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
