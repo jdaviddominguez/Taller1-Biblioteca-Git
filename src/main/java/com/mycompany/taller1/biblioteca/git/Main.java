@@ -29,6 +29,7 @@ public class Main {
                 case 1 -> crearCliente();
                 case 2 -> listarClientes();
                 case 3 -> buscarCliente();
+                case 4 -> actualizarCliente();
 
                 default -> System.out.println("Opcion invalida.");
             }
@@ -41,6 +42,7 @@ public class Main {
         System.out.println("1. Crear cliente");
         System.out.println("2. Listar clientes");
         System.out.println("3. Buscar cliente por id");
+        System.out.println("4. Actualizar cliente");
     }
     
     // ===================== CCRUD DE CLIENTE =====================
@@ -80,6 +82,20 @@ public class Main {
         String id = leerTexto("Id del cliente: ");
         Client c = buscarClientePorId(id);
         System.out.println(c != null ? c : "Cliente no encontrado.");
+    }
+     
+     private static void actualizarCliente() {
+        System.out.println("\n-- Actualizar cliente --");
+        String id = leerTexto("Id del cliente a actualizar: ");
+        Client c = buscarClientePorId(id);
+        if (c == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+        c.setNombre(leerTexto("Nuevo nombre: "));
+        c.setTelefono(leerTexto("Nuevo telefono: "));
+        c.setEmail(leerTexto("Nuevo email: "));
+        System.out.println("Cliente actualizado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
