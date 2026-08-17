@@ -35,6 +35,8 @@ public class Main {
                 case 5 -> eliminarCliente();
                 case 6 -> crearLibro();
                 case 7 -> listarLibros();
+                case 8 -> buscarLibro();
+
 
 
 
@@ -54,6 +56,8 @@ public class Main {
         System.out.println("--- Libros ---");
         System.out.println("6. Crear libro");
         System.out.println("7. Listar libros");
+        System.out.println("8. Buscar libro por codigo");
+
     }
     
     // ===================== CCRUD DE CLIENTE =====================
@@ -142,6 +146,22 @@ public class Main {
         for (Book l : books) {
             System.out.println(l);
         }
+    }
+    
+    private static Book buscarLibroPorCodigo(String codigo) {
+        for (Book l : books) {
+            if (l.getCodigo().equalsIgnoreCase(codigo)) {
+                return l;
+            }
+        }
+        return null;
+    }
+ 
+    private static void buscarLibro() {
+        System.out.println("\n-- Buscar libro --");
+        String codigo = leerTexto("Codigo del libro: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        System.out.println(l != null ? l : "Libro no encontrado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
