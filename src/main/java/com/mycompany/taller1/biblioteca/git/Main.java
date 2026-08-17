@@ -4,6 +4,7 @@
 
 package com.mycompany.taller1.biblioteca.git;
 
+import com.mycompany.taller1.biblioteca.Book;
 import com.mycompany.taller1.biblioteca.Client;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.Scanner;
 public class Main {
     
     static ArrayList<Client> client = new ArrayList<>();
-    
+    static ArrayList<Book> books = new ArrayList<>();
+
     
     static Scanner sc = new Scanner(System.in);
 
@@ -31,6 +33,14 @@ public class Main {
                 case 3 -> buscarCliente();
                 case 4 -> actualizarCliente();
                 case 5 -> eliminarCliente();
+                case 6 -> crearLibro();
+                case 7 -> listarLibros();
+                case 8 -> buscarLibro();
+                case 9 -> actualizarLibro();
+               case 10 -> eliminarLibro();
+
+
+
 
 
                 default -> System.out.println("Opcion invalida.");
@@ -46,6 +56,13 @@ public class Main {
         System.out.println("3. Buscar cliente por id");
         System.out.println("4. Actualizar cliente");
         System.out.println("5. Eliminar cliente");
+        System.out.println("--- Libros ---");
+        System.out.println("6. Crear libro");
+        System.out.println("7. Listar libros");
+        System.out.println("8. Buscar libro por codigo");
+        System.out.println("9. Actualizar libro");
+        System.out.println("10. Eliminar libro");
+
     }
     
     // ===================== CCRUD DE CLIENTE =====================
@@ -111,6 +128,71 @@ public class Main {
         }
         client.remove(c);
         System.out.println("Cliente eliminado.");
+    }
+     
+     // ===================== CRUD DE LIBROS(BOOOKS) =====================
+ 
+    private static void crearLibro() {
+        System.out.println("\n-- Crear libro --");
+        String codigo = leerTexto("Codigo: ");
+        String titulo = leerTexto("Titulo: ");
+        int anio = leerEntero("Anio de publicacion: ");
+        String autor = leerTexto("Autor: ");
+        books.add(new Book(codigo, titulo, anio, autor));
+        System.out.println("Libro creado correctamente.");
+    }
+    
+    private static void listarLibros() {
+        System.out.println("\n-- Listado de libros --");
+        if (books.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+            return;
+        }
+        for (Book l : books) {
+            System.out.println(l);
+        }
+    }
+    
+    private static Book buscarLibroPorCodigo(String codigo) {
+        for (Book l : books) {
+            if (l.getCodigo().equalsIgnoreCase(codigo)) {
+                return l;
+            }
+        }
+        return null;
+    }
+ 
+    private static void buscarLibro() {
+        System.out.println("\n-- Buscar libro --");
+        String codigo = leerTexto("Codigo del libro: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        System.out.println(l != null ? l : "Libro no encontrado.");
+    }
+    
+    private static void actualizarLibro() {
+        System.out.println("\n-- Actualizar libro --");
+        String codigo = leerTexto("Codigo del libro a actualizar: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+        l.setTitulo(leerTexto("Nuevo titulo: "));
+        l.setAnioPublicacion(leerEntero("Nuevo anio de publicacion: "));
+        l.setAutor(leerTexto("Nuevo autor: "));
+        System.out.println("Libro actualizado.");
+    }
+    
+    private static void eliminarLibro() {
+        System.out.println("\n-- Eliminar libro --");
+        String codigo = leerTexto("Codigo del libro a eliminar: ");
+        Book l = buscarLibroPorCodigo(codigo);
+        if (l == null) {
+            System.out.println("Libro no encontrado.");
+            return;
+        }
+        books.remove(l);
+        System.out.println("Libro eliminado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
