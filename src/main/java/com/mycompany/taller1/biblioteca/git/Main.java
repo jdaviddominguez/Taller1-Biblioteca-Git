@@ -42,6 +42,7 @@ public class Main {
                 case 9 -> actualizarLibro();
                 case 10 -> eliminarLibro();
                 case 11 -> crearPrestamo();
+                case 12 -> registrarDevolucion();
 
 
                 default -> System.out.println("Opcion invalida.");
@@ -65,6 +66,8 @@ public class Main {
         System.out.println("10. Eliminar libro");
         System.out.println("--- Prestamos ---");
         System.out.println("11. Registrar prestamo");
+        System.out.println("12. Registrar devolucion");
+
 
     }
     
@@ -224,6 +227,20 @@ public class Main {
         loan.add(p);
         l.setDisponible(false);
         System.out.println("Prestamo registrado correctamente.");
+    }
+    
+    private static void registrarDevolucion() {
+        System.out.println("\n-- Registrar devolucion --");
+        String idPrestamo = leerTexto("Id del prestamo: ");
+        for (Loan p : loan) {
+            if (p.getIdPrestamo().equalsIgnoreCase(idPrestamo) && p.getEstado().equals("ACTIVO")) {
+                p.setEstado("DEVUELTO");
+                p.getLibro().setDisponible(true);
+                System.out.println("Devolucion registrada correctamente.");
+                return;
+            }
+        }
+        System.out.println("Prestamo activo no encontrado.");
     }
      
          // ===================== UTILIDADES DE ENTRADA =====================
